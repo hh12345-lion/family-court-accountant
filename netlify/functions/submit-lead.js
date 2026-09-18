@@ -23,6 +23,7 @@ function getSiteDomain() {
   }
 }
 
+/** Map site-specific free-text field names to universal `message`. */
 function resolveLeadMessage(body) {
   if (!body || typeof body !== "object") return "";
   const keys = [
@@ -34,6 +35,11 @@ function resolveLeadMessage(body) {
     "summary",
     "notes",
     "matter",
+    "caseSummary",
+    "additionalInfo",
+    "additional_info",
+    "caseDetails",
+    "enquiryDetails",
   ];
   for (const key of keys) {
     if (body[key] != null && String(body[key]).trim()) {
