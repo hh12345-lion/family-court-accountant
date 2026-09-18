@@ -45,6 +45,7 @@ export async function POST(request: Request) {
     email: lead.email,
     phone: lead.phone,
     formType: lead.formType,
+    message: lead.message,
   });
 
   const webhookOk = webhookResult.ok;
