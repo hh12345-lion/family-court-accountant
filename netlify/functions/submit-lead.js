@@ -1,6 +1,6 @@
 /**
  * POST /api/submit-lead (via netlify.toml redirect) → n8n / webhook.
- * Outbound JSON: Full Name, Email, Phone Number, Brand name, domain (5 keys).
+ * Outbound JSON: Full Name, Email, Phone Number, Brand name, domain, message.
  * Env: Lead_notification_url or LEAD_NOTIFICATION_URL; NEXT_PUBLIC_SITE_URL for domain.
  */
 const BRAND_NAME = "FamilyCourtAccountant";
@@ -23,13 +23,34 @@ function getSiteDomain() {
   }
 }
 
-function buildPayload({ fullName, email, phone }) {
+function resolveLeadMessage(body) {
+  if (!body || typeof body !== "object") return "";
+  const keys = [
+    "message",
+    "Message",
+    "description",
+    "enquiry",
+    "details",
+    "summary",
+    "notes",
+    "matter",
+  ];
+  for (const key of keys) {
+    if (body[key] != null && String(body[key]).trim()) {
+      return String(body[key]).trim();
+    }
+  }
+  return "";
+}
+
+function buildPayload({ fullName, email, phone, message }) {
   return {
     "Full Name": fullName,
     Email: email,
     "Phone Number": phone,
     "Brand name": BRAND_NAME,
     domain: getSiteDomain(),
+    message: message ?? "",
   };
 }
 
@@ -67,6 +88,7 @@ exports.handler = async (event) => {
   const fullName = String(body.fullName || body.full_name || "").trim();
   const email = String(body.email || "").trim();
   const phone = body.phone != null ? String(body.phone).trim() : "";
+  const message = resolveLeadMessage(body);
 
   if (!fullName || !email) {
     return {
@@ -93,7 +115,7 @@ exports.handler = async (event) => {
     res = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(buildPayload({ fullName, email, phone })),
+      body: JSON.stringify(buildPayload({ fullName, email, phone, message })),
     });
   } catch {
     return {
