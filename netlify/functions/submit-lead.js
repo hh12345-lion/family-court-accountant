@@ -40,6 +40,15 @@ function resolveLeadMessage(body) {
     "additional_info",
     "caseDetails",
     "enquiryDetails",
+    "caseBrief",
+    "case_summary",
+    "matterDescription",
+    "additionalNotes",
+    "caseBackground",
+    "specificQuestions",
+    "briefSummary",
+    "conflict_info",
+    "brief",
   ];
   for (const key of keys) {
     if (body[key] != null && String(body[key]).trim()) {
