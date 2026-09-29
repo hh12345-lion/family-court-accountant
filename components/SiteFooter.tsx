@@ -9,6 +9,7 @@ import { SITE_NAME, SITE_REFERRAL_NOTICE } from "@/lib/site";
 
 const resourceLinks = [
   { href: "/guides", label: "Guides" },
+  { href: "/blog", label: "Blog" },
   { href: "/case-types", label: "Case types" },
   { href: "/how-it-works", label: "Process" },
   { href: "/how-to-instruct", label: "How to instruct" },

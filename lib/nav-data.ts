@@ -46,6 +46,7 @@ export const caseTypesNavLinks: NavLink[] = [
 
 export const resourcesNavLinks: NavLink[] = [
   { href: "/guides", label: "Guides" },
+  { href: "/blog", label: "Blog" },
   { href: "/how-to-instruct", label: "How to instruct" },
   { href: "/qualifications", label: "Qualifications" },
 ];

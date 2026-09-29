@@ -125,6 +125,11 @@ export const PAGE_SEO_MANIFEST: Record<
     description:
       "In-depth guides on family court accountants for attorneys and individuals — financial affidavit analysis, hidden assets, business valuation in divorce, and more.",
   },
+  "/blog": {
+    title: "Blog | Family Court Accountant Insights",
+    description:
+      "Articles for family lawyers on forensic accounting in divorce, including share options, RSUs, equity awards and financial disclosure.",
+  },
   "/glossary": {
     title: "Family Court Accountant Glossary | Key Family Finance Terms",
     description:

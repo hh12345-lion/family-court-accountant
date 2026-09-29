@@ -12,6 +12,8 @@ import {
 
 } from "../site";
 
+import { getBlogSlugs } from "../blog";
+
 
 
 export const CANONICAL_HOST = SITE_URL;
@@ -51,6 +53,8 @@ export const APP_STATIC_PATHS = [
   "/how-to-instruct",
 
   "/guides",
+
+  "/blog",
 
   "/glossary",
 
@@ -117,6 +121,8 @@ export function buildPublicUrlInventory(): PublicUrlInventory {
     ...guideSlugs.map((slug) => `/guides/${slug}`),
 
     ...serviceSlugs.map((slug) => `/services/${slug}`),
+
+    ...getBlogSlugs().map((slug) => `/blog/${slug}`),
 
   ];
 
@@ -212,9 +218,9 @@ export function getSitemapPriority(path: string): number {
 
   if (path.startsWith("/case-types/")) return 0.88;
 
-  if (path === "/guides") return 0.87;
+  if (path === "/guides" || path === "/blog") return 0.87;
 
-  if (path.startsWith("/guides/")) return 0.8;
+  if (path.startsWith("/guides/") || path.startsWith("/blog/")) return 0.8;
 
   if (path === "/glossary") return 0.75;
 

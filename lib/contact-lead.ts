@@ -1,6 +1,7 @@
 /** Server-only helpers for parsing and sanitizing contact form leads. */
 
 import { BRAND_NAME } from "@/lib/leadNotification";
+import { resolveLeadMessage } from "@/lib/resolveLeadMessage";
 
 export type ContactLead = {
   fullName: string;
@@ -40,17 +41,7 @@ export function parseContactLead(body: Record<string, unknown>): ContactLead {
     fullName: trimStr(body.fullName ?? body.full_name ?? body.name, 300),
     email: trimStr(body.email, 320).toLowerCase(),
     phone: trimStr(body.phone, 80),
-    message: trimStr(
-      body.message ??
-        body.Message ??
-        body.description ??
-        body.enquiry ??
-        body.details ??
-        body.summary ??
-        body.notes ??
-        body.matter,
-      8000,
-    ),
+    message: trimStr(resolveLeadMessage(body), 8000),
     organization: trimStr(
       body.organization ?? body.organisation ?? body.firm,
       300,
